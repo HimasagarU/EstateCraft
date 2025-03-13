@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Estate Craft - Real Estate Management Platform
 
 Estate Craft is a comprehensive real estate management platform built using the MERN (MongoDB, Express, React, Node.js) stack. It facilitates seamless interactions between multiple user roles, including admins, employees, sellers, and buyers, offering a secure, responsive, and user-friendly experience.
@@ -69,3 +70,6 @@ Start the React frontend server
   npm run start
 ```
 
+=======
+# EstateCraft
+>>>>>>> 0fb7d42a1b72852ddb07eabf2036cc87df3c90e9
