@@ -135,7 +135,6 @@ export const getDashboardStats = async (req, res) => {
             select: "name email",
         });
         const feedbacks = await Feedback.find(feedbackFilter)
-            .populate("user", "name email")
             .sort({ createdAt: -1 });
 
         const employees = allUsers.filter((u) => u.role === "employee");

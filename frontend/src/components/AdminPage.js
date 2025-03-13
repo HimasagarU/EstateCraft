@@ -521,8 +521,8 @@ const AdminPage = () => {
         <FeedbackCard key={feedback._id}>
           <FeedbackContent>
             <UserInfo>
-              <div>Name: {feedback.user?.name}</div>
-              <div>Email: {feedback.user?.email}</div>
+              <div>Name: {feedback.name}</div>
+              <div>Email: {feedback.email}</div>
             </UserInfo>
             <Message>{feedback.message}</Message>
           </FeedbackContent>
