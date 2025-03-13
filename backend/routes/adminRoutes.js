@@ -3,10 +3,10 @@ import {
     getDashboardStats, 
     deleteUser, 
     addEmployee,
-    deleteProperty
+    deleteProperty,
+    deleteFeedback  // Add this import
 } from '../controllers/AdminController.js';
 import { verifyJWT, roleCheck } from '../middlewares/auth.js';
-import { deleteFeedback } from '../controllers/FeedbackController.js';
 
 const router = express.Router();
 

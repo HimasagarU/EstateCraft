@@ -167,12 +167,20 @@ const AdminPage = () => {
   const handleDeleteFeedback = async (id) => {
     try {
       const token = authService.getToken();
-      await axios.delete(`http://localhost:5000/api/admin/feedback/${id}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      fetchDashboardData();
+      const response = await axios.delete(
+        `http://localhost:5000/api/admin/feedback/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        }
+      );
+      
+      if (response.status === 200) {
+        fetchDashboardData(); // Refresh the data
+        alert('Feedback deleted successfully');
+      }
     } catch (error) {
       console.error('Error deleting feedback:', error);
+      alert('Failed to delete feedback: ' + (error.response?.data?.message || 'Unknown error'));
     }
   };
 
@@ -511,10 +519,15 @@ const AdminPage = () => {
     <FeedbackContainer>
       {stats?.feedbacks?.map(feedback => (
         <FeedbackCard key={feedback._id}>
-          <FeedbackContent>{feedback.message}</FeedbackContent>
+          <FeedbackContent>
+            <div>From: {feedback.user?.name || 'Anonymous'}</div>
+            <div>{feedback.message}</div>
+          </FeedbackContent>
           <FeedbackDetails>
             <span>{new Date(feedback.createdAt).toLocaleDateString()}</span>
-            <DeleteButton onClick={() => handleDeleteFeedback(feedback._id)}>Delete</DeleteButton>
+            <DeleteButton onClick={() => handleDeleteFeedback(feedback._id)}>
+              Delete
+            </DeleteButton>
           </FeedbackDetails>
         </FeedbackCard>
       ))}

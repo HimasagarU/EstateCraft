@@ -64,16 +64,40 @@ export const deleteUser = async (req, res) => {
 };
 
 export const deleteFeedback = async (req, res) => {
-    const { id } = req.params;
     try {
+        const { id } = req.params;
+        
+        // Check if feedback exists
         const feedbackToDelete = await Feedback.findById(id);
         if (!feedbackToDelete) {
-            return res.status(404).json({ success: false, message: 'Feedback not found' });
+            return res.status(404).json({ 
+                success: false, 
+                message: 'Feedback not found' 
+            });
         }
-        await Feedback.findByIdAndDelete(id);
-        res.status(200).json({ success: true, message: 'Feedback deleted successfully' });
+
+        // Delete the feedback
+        const deletedFeedback = await Feedback.findByIdAndDelete(id);
+        
+        if (!deletedFeedback) {
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Failed to delete feedback' 
+            });
+        }
+
+        res.status(200).json({ 
+            success: true, 
+            message: 'Feedback deleted successfully',
+            deletedFeedback 
+        });
     } catch (error) {
-        res.status(400).json({ success: false, message: 'Failed to delete feedback' });
+        console.error('Error deleting feedback:', error);
+        res.status(500).json({ 
+            success: false, 
+            message: 'Error deleting feedback',
+            error: error.message 
+        });
     }
 };
 
