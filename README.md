@@ -51,7 +51,7 @@ Terminal-1 : Navigate to the Backend directory
 ```bash
   cd backend
 ```
-Install dependencies:
+Install dependencies if not downloaded:
 
 ```bash
   npm install
@@ -68,7 +68,7 @@ Terminal-2 : Navigate to the frontend directory
 ```bash
   cd frontend
 ```
-Install dependencies:
+Install dependencies if not downloaded:
 
 ```bash
   npm install
