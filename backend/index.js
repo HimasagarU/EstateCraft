@@ -2,13 +2,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import events from 'events';
-
-// Increase the limit of event listeners
-events.EventEmitter.defaultMaxListeners = 15;
+import helmet from 'helmet';
 
 const app = express();
 dotenv.config();
+app.use(helmet());
 
 // Middleware
 app.use(cors());
@@ -37,6 +35,12 @@ app.use('/api/employee', employeeRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/adv', advertisementRoutes);
 app.use('/api/feedback', feedbackroutes);
+
+// Simple error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Internal Server Error');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
