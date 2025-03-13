@@ -51,6 +51,12 @@ Terminal-1 : Navigate to the Backend directory
 ```bash
   cd backend
 ```
+Install dependencies:
+
+```bash
+  npm install
+```
+
 Start the backend server:
 
 ```bash
@@ -61,6 +67,11 @@ Terminal-2 : Navigate to the frontend directory
 
 ```bash
   cd frontend
+```
+Install dependencies:
+
+```bash
+  npm install
 ```
 
 Start the React frontend server
