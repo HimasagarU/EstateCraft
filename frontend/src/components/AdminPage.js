@@ -140,6 +140,7 @@ const AdminPage = () => {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchDashboardData();
+      alert('User deleted successfully!');
     } catch (error) {
       console.error('Error deleting user:', error);
     }
@@ -205,6 +206,7 @@ const AdminPage = () => {
       );
       e.target.reset();
       fetchDashboardData();
+      alert('Employee added successfully!');
     } catch (error) {
       console.error('Error adding employee:', error);
     }
