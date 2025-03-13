@@ -173,7 +173,7 @@ const AdminPage = () => {
           headers: { Authorization: `Bearer ${token}` }
         }
       );
-      
+
       if (response.status === 200) {
         fetchDashboardData(); // Refresh the data
         alert('Feedback deleted successfully');
@@ -374,7 +374,7 @@ const AdminPage = () => {
             <Icon><FaLock /></Icon>
           </InputBox>
 
-          <ApplyFilterButton 
+          <ApplyFilterButton
             type="submit"
             style={{
               width: '100%',
@@ -461,7 +461,7 @@ const AdminPage = () => {
                   <DeleteButton onClick={() => handleDeleteUser(user._id)}>Delete</DeleteButton>
                 </td>
               </tr>
-          ))}
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
@@ -543,32 +543,32 @@ const AdminPage = () => {
         <SidebarTitle>Admin Dashboard</SidebarTitle>
         <NavContainer>
           <NavItem>
-            <NavButton 
-              active={activeTab === 'dashboard'} 
+            <NavButton
+              active={activeTab === 'dashboard'}
               onClick={() => setActiveTab('dashboard')}
             >
               Dashboard
             </NavButton>
           </NavItem>
           <NavItem>
-            <NavButton 
-              active={activeTab === 'users'} 
+            <NavButton
+              active={activeTab === 'users'}
               onClick={() => setActiveTab('users')}
             >
               Users
             </NavButton>
           </NavItem>
           <NavItem>
-            <NavButton 
-              active={activeTab === 'properties'} 
+            <NavButton
+              active={activeTab === 'properties'}
               onClick={() => setActiveTab('properties')}
             >
               Properties
             </NavButton>
           </NavItem>
           <NavItem>
-            <NavButton 
-              active={activeTab === 'feedback'} 
+            <NavButton
+              active={activeTab === 'feedback'}
               onClick={() => setActiveTab('feedback')}
             >
               Feedback
@@ -771,7 +771,7 @@ const StatusBadge = styled.span`
   font-size: 14px;
   font-weight: 500;
   background: ${props => {
-    switch(props.status) {
+    switch (props.status) {
       case 'available': return '#e1f7e1';
       case 'pending': return '#fff3e1';
       case 'sold': return '#ffe1e1';
@@ -779,7 +779,7 @@ const StatusBadge = styled.span`
     }
   }};
   color: ${props => {
-    switch(props.status) {
+    switch (props.status) {
       case 'available': return '#2e7d32';
       case 'pending': return '#ed6c02';
       case 'sold': return '#d32f2f';
@@ -802,7 +802,7 @@ const ErrorDisplay = ({ error, onRetry }) => {
     <LoadingWrapper>
       <div style={{ textAlign: 'center' }}>
         <p style={{ color: '#dc3545', marginBottom: '1rem' }}>{error}</p>
-        <button 
+        <button
           onClick={onRetry}
           style={{
             padding: '8px 16px',

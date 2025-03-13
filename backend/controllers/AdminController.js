@@ -1,19 +1,21 @@
-import User from '../models/User.js';
-import Feedback from '../models/Feedback.js';
-import Property from '../models/Property.js';
-import bcrypt from 'bcryptjs';
+import User from "../models/User.js";
+import Feedback from "../models/Feedback.js";
+import Property from "../models/Property.js";
+import bcrypt from "bcryptjs";
 
 export const getAdminDashboardData = async (req, res) => {
     try {
-        const users = await User.find().select('-password');
-        const properties = await Property.find()
-            .populate({ path: 'seller', select: 'name email' });
+        const users = await User.find().select("-password");
+        const properties = await Property.find().populate({
+            path: "seller",
+            select: "name email",
+        });
         const feedbacks = await Feedback.find()
-            .populate('user', 'name email')
+            .populate("user", "name email")
             .sort({ createdAt: -1 })
             .limit(5);
 
-        const employees = users.filter(u => u.role === 'employee');
+        const employees = users.filter((u) => u.role === "employee");
 
         const stats = {
             users,
@@ -22,26 +24,26 @@ export const getAdminDashboardData = async (req, res) => {
             employees,
             totalCounts: {
                 properties: properties.length,
-                buyers: users.filter(u => u.role === 'buyer').length,
-                sellers: users.filter(u => u.role === 'seller').length,
-                employees: employees.length
+                buyers: users.filter((u) => u.role === "buyer").length,
+                sellers: users.filter((u) => u.role === "seller").length,
+                employees: employees.length,
             },
             employeeStats: {
-                active: employees.filter(e => e.status === 'active').length,
-                inactive: employees.filter(e => e.status === 'inactive').length,
-                total: employees.length
+                active: employees.filter((e) => e.status === "active").length,
+                inactive: employees.filter((e) => e.status === "inactive").length,
+                total: employees.length,
             },
             propertyStatus: {
-                available: properties.filter(p => p.status === 'available').length,
-                pending: properties.filter(p => p.status === 'pending').length,
-                sold: properties.filter(p => p.status === 'sold').length
+                available: properties.filter((p) => p.status === "available").length,
+                pending: properties.filter((p) => p.status === "pending").length,
+                sold: properties.filter((p) => p.status === "sold").length,
             },
-            recentProperties: properties.slice(0, 5)
+            recentProperties: properties.slice(0, 5),
         };
 
         res.status(200).json(stats);
     } catch (error) {
-        console.error('Dashboard stats error:', error);
+        console.error("Dashboard stats error:", error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -51,67 +53,82 @@ export const deleteUser = async (req, res) => {
     try {
         const userToDelete = await User.findById(id);
         if (!userToDelete) {
-            return res.status(404).json({ success: false, message: 'User not found' });
+            return res
+                .status(404)
+                .json({ success: false, message: "User not found" });
         }
-        if (userToDelete.role === 'admin') {
-            return res.status(403).json({ success: false, message: 'Admins cannot be deleted' });
+        if (userToDelete.role === "admin") {
+            return res
+                .status(403)
+                .json({ success: false, message: "Admins cannot be deleted" });
         }
         await User.findByIdAndDelete(id);
-        res.status(200).json({ success: true, message: 'User deleted successfully' });
+        res
+            .status(200)
+            .json({ success: true, message: "User deleted successfully" });
     } catch (error) {
-        res.status(400).json({ success: false, message: 'Failed to delete user' });
+        res.status(400).json({ success: false, message: "Failed to delete user" });
     }
 };
 
 export const deleteFeedback = async (req, res) => {
     try {
         const { id } = req.params;
-        
+
         // Check if feedback exists
         const feedbackToDelete = await Feedback.findById(id);
         if (!feedbackToDelete) {
-            return res.status(404).json({ 
-                success: false, 
-                message: 'Feedback not found' 
+            return res.status(404).json({
+                success: false,
+                message: "Feedback not found",
             });
         }
 
         // Delete the feedback
         const deletedFeedback = await Feedback.findByIdAndDelete(id);
-        
+
         if (!deletedFeedback) {
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Failed to delete feedback' 
+            return res.status(400).json({
+                success: false,
+                message: "Failed to delete feedback",
             });
         }
 
-        res.status(200).json({ 
-            success: true, 
-            message: 'Feedback deleted successfully',
-            deletedFeedback 
+        res.status(200).json({
+            success: true,
+            message: "Feedback deleted successfully",
+            deletedFeedback,
         });
     } catch (error) {
-        console.error('Error deleting feedback:', error);
-        res.status(500).json({ 
-            success: false, 
-            message: 'Error deleting feedback',
-            error: error.message 
+        console.error("Error deleting feedback:", error);
+        res.status(500).json({
+            success: false,
+            message: "Error deleting feedback",
+            error: error.message,
         });
     }
 };
 
 export const getDashboardStats = async (req, res) => {
     try {
-        const { userDateFrom, userDateTo, propertyDateFrom, propertyDateTo, propertyStatus, userRole, feedbackDateFrom, feedbackDateTo } = req.query;
+        const {
+            userDateFrom,
+            userDateTo,
+            propertyDateFrom,
+            propertyDateTo,
+            propertyStatus,
+            userRole,
+            feedbackDateFrom,
+            feedbackDateTo,
+        } = req.query;
 
         // Get total counts without filters first
-        const allUsers = await User.find().select('-password');
+        const allUsers = await User.find().select("-password");
         const totalCounts = {
             properties: await Property.countDocuments(),
-            buyers: allUsers.filter(u => u.role === 'buyer').length,
-            sellers: allUsers.filter(u => u.role === 'seller').length,
-            employees: allUsers.filter(u => u.role === 'employee').length
+            buyers: allUsers.filter((u) => u.role === "buyer").length,
+            sellers: allUsers.filter((u) => u.role === "seller").length,
+            employees: allUsers.filter((u) => u.role === "employee").length,
         };
 
         // Apply filters for displayed data
@@ -125,28 +142,30 @@ export const getDashboardStats = async (req, res) => {
                 userFilter.createdAt.$lte = endDate;
             }
         }
-        if (userRole && userRole !== 'all') {
+        if (userRole && userRole !== "all") {
             userFilter.role = userRole;
         }
 
         let propertyFilter = {};
         if (propertyDateFrom || propertyDateTo) {
             propertyFilter.createdAt = {};
-            if (propertyDateFrom) propertyFilter.createdAt.$gte = new Date(propertyDateFrom);
+            if (propertyDateFrom)
+                propertyFilter.createdAt.$gte = new Date(propertyDateFrom);
             if (propertyDateTo) {
                 const endDate = new Date(propertyDateTo);
                 endDate.setHours(23, 59, 59, 999);
                 propertyFilter.createdAt.$lte = endDate;
             }
         }
-        if (propertyStatus && propertyStatus !== 'all') {
+        if (propertyStatus && propertyStatus !== "all") {
             propertyFilter.status = propertyStatus;
         }
 
         let feedbackFilter = {};
         if (feedbackDateFrom || feedbackDateTo) {
             feedbackFilter.createdAt = {};
-            if (feedbackDateFrom) feedbackFilter.createdAt.$gte = new Date(feedbackDateFrom);
+            if (feedbackDateFrom)
+                feedbackFilter.createdAt.$gte = new Date(feedbackDateFrom);
             if (feedbackDateTo) {
                 const endDate = new Date(feedbackDateTo);
                 endDate.setHours(23, 59, 59, 999);
@@ -155,14 +174,16 @@ export const getDashboardStats = async (req, res) => {
         }
 
         // Get filtered data
-        const users = await User.find(userFilter).select('-password');
-        const properties = await Property.find(propertyFilter)
-            .populate({ path: 'seller', select: 'name email' });
+        const users = await User.find(userFilter).select("-password");
+        const properties = await Property.find(propertyFilter).populate({
+            path: "seller",
+            select: "name email",
+        });
         const feedbacks = await Feedback.find(feedbackFilter)
-            .populate('user', 'name email')
+            .populate("user", "name email")
             .sort({ createdAt: -1 });
 
-        const employees = allUsers.filter(u => u.role === 'employee');
+        const employees = allUsers.filter((u) => u.role === "employee");
 
         const stats = {
             users,
@@ -171,21 +192,21 @@ export const getDashboardStats = async (req, res) => {
             employees,
             totalCounts,
             employeeStats: {
-                active: employees.filter(e => e.status === 'active').length,
-                inactive: employees.filter(e => e.status === 'inactive').length,
-                total: employees.length
+                active: employees.filter((e) => e.status === "active").length,
+                inactive: employees.filter((e) => e.status === "inactive").length,
+                total: employees.length,
             },
             propertyStatus: {
-                available: properties.filter(p => p.status === 'available').length,
-                pending: properties.filter(p => p.status === 'pending').length,
-                sold: properties.filter(p => p.status === 'sold').length
+                available: properties.filter((p) => p.status === "available").length,
+                pending: properties.filter((p) => p.status === "pending").length,
+                sold: properties.filter((p) => p.status === "sold").length,
             },
-            recentProperties: properties.slice(0, 5)
+            recentProperties: properties.slice(0, 5),
         };
 
         res.status(200).json(stats);
     } catch (error) {
-        console.error('Dashboard stats error:', error);
+        console.error("Dashboard stats error:", error);
         res.status(500).json({ message: error.message });
     }
 };
@@ -193,10 +214,10 @@ export const getDashboardStats = async (req, res) => {
 export const addEmployee = async (req, res) => {
     try {
         const { name, email, password } = req.body;
-        
+
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: 'Email already exists' });
+            return res.status(400).json({ message: "Email already exists" });
         }
 
         const salt = await bcrypt.genSalt(10);
@@ -206,20 +227,20 @@ export const addEmployee = async (req, res) => {
             name,
             email,
             password: hashedPassword,
-            role: 'employee',
-            status: 'active'
+            role: "employee",
+            status: "active",
         });
 
         const { password: _, ...employeeData } = newEmployee.toObject();
 
         res.status(201).json({
             success: true,
-            message: 'Employee created successfully',
-            data: employeeData
+            message: "Employee created successfully",
+            data: employeeData,
         });
     } catch (error) {
-        console.error('Error creating employee:', error);
-        res.status(500).json({ message: 'Failed to create employee' });
+        console.error("Error creating employee:", error);
+        res.status(500).json({ message: "Failed to create employee" });
     }
 };
 
@@ -228,11 +249,17 @@ export const deleteProperty = async (req, res) => {
     try {
         const propertyToDelete = await Property.findById(id);
         if (!propertyToDelete) {
-            return res.status(404).json({ success: false, message: 'Property not found' });
+            return res
+                .status(404)
+                .json({ success: false, message: "Property not found" });
         }
         await Property.findByIdAndDelete(id);
-        res.status(200).json({ success: true, message: 'Property deleted successfully' });
+        res
+            .status(200)
+            .json({ success: true, message: "Property deleted successfully" });
     } catch (error) {
-        res.status(400).json({ success: false, message: 'Failed to delete property' });
+        res
+            .status(400)
+            .json({ success: false, message: "Failed to delete property" });
     }
 };
