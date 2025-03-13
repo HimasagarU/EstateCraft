@@ -520,8 +520,11 @@ const AdminPage = () => {
       {stats?.feedbacks?.map(feedback => (
         <FeedbackCard key={feedback._id}>
           <FeedbackContent>
-            <div>From: {feedback.user?.name || 'Anonymous'}</div>
-            <div>{feedback.message}</div>
+            <UserInfo>
+              <div>Name: {feedback.user?.name}</div>
+              <div>Email: {feedback.user?.email}</div>
+            </UserInfo>
+            <Message>{feedback.message}</Message>
           </FeedbackContent>
           <FeedbackDetails>
             <span>{new Date(feedback.createdAt).toLocaleDateString()}</span>
@@ -974,6 +977,22 @@ const PropertyDetailsCell = styled.div`
     text-overflow: ellipsis;
     max-width: 200px;
   }
+`;
+
+const UserInfo = styled.div`
+  margin-bottom: 1rem;
+  font-size: 1.6rem;
+  color: ${colors.primary};
+  
+  div {
+    margin-bottom: 0.5rem;
+  }
+`;
+
+const Message = styled.div`
+  font-size: 1.8rem;
+  color: ${colors.neutral};
+  line-height: 1.5;
 `;
 
 export default AdminPage;
