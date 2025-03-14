@@ -13,13 +13,11 @@ import {
 
 const router = express.Router();
 
-// Advertisement Management Routes
 router.get('/advertisements', verifyJWT, roleCheck(['employee']), getAdvertisements);
 router.post('/advertisement', verifyJWT, roleCheck(['employee']), addAdvertisement);
 router.put('/advertisement/:id', verifyJWT, roleCheck(['employee']), editAdvertisement);
 router.delete('/advertisement/:id', verifyJWT, roleCheck(['employee']), deleteAdvertisement);
 
-// Advertisement Request Routes
 router.get('/advertisement-requests', verifyJWT, roleCheck(['employee']), getAdvertisementRequests);
 router.patch('/advertisement-request/status', verifyJWT, roleCheck(['employee']), updateAdvertisementRequest);
 router.delete('/advertisement-request/:id', verifyJWT, roleCheck(['employee']), deleteAdvertisementRequest);

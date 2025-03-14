@@ -29,8 +29,6 @@ export const deleteUser = async (req, res) => {
 export const deleteFeedback = async (req, res) => {
     try {
         const { id } = req.params;
-
-        // Check if feedback exists
         const feedbackToDelete = await Feedback.findById(id);
         if (!feedbackToDelete) {
             return res.status(404).json({
@@ -39,7 +37,6 @@ export const deleteFeedback = async (req, res) => {
             });
         }
 
-        // Delete the feedback
         const deletedFeedback = await Feedback.findByIdAndDelete(id);
 
         if (!deletedFeedback) {
@@ -77,7 +74,6 @@ export const getDashboardStats = async (req, res) => {
             feedbackDateTo,
         } = req.query;
 
-        // Get total counts without filters first
         const allUsers = await User.find().select("-password");
         const totalCounts = {
             properties: await Property.countDocuments(),
@@ -86,7 +82,6 @@ export const getDashboardStats = async (req, res) => {
             employees: allUsers.filter((u) => u.role === "employee").length,
         };
 
-        // Apply filters for displayed data
         let userFilter = {};
         if (userDateFrom || userDateTo) {
             userFilter.createdAt = {};
@@ -128,7 +123,6 @@ export const getDashboardStats = async (req, res) => {
             }
         }
 
-        // Get filtered data
         const users = await User.find(userFilter).select("-password");
         const properties = await Property.find(propertyFilter).populate({
             path: "seller",

@@ -67,12 +67,10 @@ export const deleteProperty = async (req, res) => {
             return res.status(404).json({ message: 'Property not found' });
         }
 
-        // Check if the property belongs to the seller
         if (property.seller.toString() !== req.user.id) {
             return res.status(403).json({ message: 'Not authorized to delete this property' });
         }
 
-        // Prevent deletion if property is sold or pending
         if (property.status === 'sold' || property.status === 'pending') {
             return res.status(400).json({ 
                 message: 'Cannot delete sold or pending properties' 
@@ -99,8 +97,6 @@ export const advertiseProperty = async (req, res) => {
     try {
         const { amount, currency, title, image, propertyId } = req.body;
         const userId = req.user.id;
-
-        // First, verify the property exists and get its details
         const property = await Property.findOne({ _id: propertyId, seller: userId });
         if (!property) {
             return res.status(404).json({ message: 'Property not found' });
@@ -128,15 +124,14 @@ export const advertiseProperty = async (req, res) => {
             }
         });
 
-        // Create a new advertisement request with all required fields
         const advertisementRequest = new AdvertisementRequest({
             property: propertyId,
             seller: userId,
             amount: amount / 100,
             status: 'pending',
             stripeSessionId: session.id,
-            title: property.title,        // Use property title
-            image: property.image,        // Use property image
+            title: property.title,
+            image: property.image,
             description: property.description || 'Property Advertisement'
         });
 

@@ -1,10 +1,10 @@
 export const colors = {
-    primary: '#1A365D',    // Deep navy blue - trust & professionalism
-    secondary: '#C53030',  // Rich red - energy & luxury
-    accent: '#805AD5',     // Purple - sophistication
-    background: '#F7FAFC', // Light cool gray - clean & modern
-    neutral: '#4A5568',    // Slate gray - balance
-    gold: '#D69E2E',      // Gold accent - luxury
+    primary: '#1A365D', 
+    secondary: '#C53030', 
+    accent: '#805AD5',  
+    background: '#F7FAFC',
+    neutral: '#4A5568',
+    gold: '#D69E2E',      
     white: '#FFFFFF',
     error: '#E53E3E',
     gradientStart: '#2D3748',
@@ -83,7 +83,7 @@ export const authStyles = {
     header: {
         fontSize: '28px',
         fontWeight: '600',
-        color: '#1A365D', // Deep navy
+        color: '#1A365D', 
         textAlign: 'center',
         marginBottom: '30px',
         animation: 'fadeInDown 0.5s ease-out',
@@ -96,7 +96,7 @@ export const authStyles = {
     input: {
         width: '100%',
         height: '50px',
-        background: 'rgba(45, 55, 72, 0.1)', // Subtle navy background
+        background: 'rgba(45, 55, 72, 0.1)',
         border: '2px solid transparent',
         borderRadius: '30px',
         padding: '0 45px',
@@ -106,7 +106,7 @@ export const authStyles = {
         transition: 'all 0.3s ease',
         '&:focus': {
             background: 'rgba(45, 55, 72, 0.15)',
-            borderColor: '#C53030', // Rich red
+            borderColor: '#C53030', 
             outline: 'none',
             boxShadow: '0 0 0 4px rgba(197, 48, 48, 0.1)',
         }
@@ -115,13 +115,13 @@ export const authStyles = {
         position: 'absolute',
         left: '17px',
         top: '15px',
-        color: '#C53030', // Rich red
+        color: '#C53030', 
         transition: 'all 0.3s ease',
     },
     submitButton: {
         width: '100%',
         height: '45px',
-        background: '#C53030', // Rich red
+        background: '#C53030', 
         border: 'none',
         borderRadius: '30px',
         color: '#fff',
@@ -130,23 +130,23 @@ export const authStyles = {
         cursor: 'pointer',
         transition: 'all 0.3s ease',
         '&:hover': {
-            background: '#9B2C2C', // Darker red
+            background: '#9B2C2C', 
             transform: 'translateY(-2px)',
             boxShadow: '0 5px 15px rgba(197, 48, 48, 0.3)',
         }
     },
     link: {
-        color: '#C53030', // Rich red
+        color: '#C53030', 
         textDecoration: 'none',
         fontWeight: '500',
         transition: 'all 0.3s ease',
         '&:hover': {
-            color: '#9B2C2C', // Darker red
+            color: '#9B2C2C', 
             textDecoration: 'underline',
         }
     },
     errorText: {
-        color: '#E53E3E', // Error red
+        color: '#E53E3E', 
         fontSize: '14px',
         textAlign: 'center',
         marginBottom: '15px',
@@ -173,7 +173,6 @@ export const authStyles = {
     }
 };
 
-// Add these keyframe animations to your CSS
 const keyframes = `
     @keyframes fadeIn {
         from { opacity: 0; }
@@ -245,7 +244,7 @@ const keyframes = `
     }
 `;
 
-// Add this style tag to your document
+
 const style = document.createElement('style');
 style.textContent = keyframes;
 document.head.appendChild(style);

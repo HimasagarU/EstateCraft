@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-// Common color palette
+
 export const colors = {
   primary: '#2c3e50',
   secondary: '#34495e',
@@ -18,7 +18,7 @@ export const colors = {
   border: '#dcdde1'
 };
 
-// Common styled components
+
 export const PageContainer = styled.div`
   background-color: ${colors.background};
   min-height: 100vh;

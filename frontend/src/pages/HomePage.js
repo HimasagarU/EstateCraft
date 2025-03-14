@@ -22,7 +22,7 @@ const Homepage = () => {
     e.preventDefault();
     
     try {
-        console.log('Submitting feedback:', formData); // Debug log
+        console.log('Submitting feedback:', formData); 
         
         const response = await fetch('http://localhost:5000/api/feedback', {
             method: 'POST',
@@ -33,10 +33,10 @@ const Homepage = () => {
             body: JSON.stringify(formData)
         });
 
-        console.log('Response status:', response.status); // Debug log
+        console.log('Response status:', response.status); 
 
         const result = await response.json();
-        console.log('Response data:', result); // Debug log
+        console.log('Response data:', result); 
 
         if (!response.ok) {
             throw new Error(result.message || 'Failed to submit feedback');
@@ -52,7 +52,7 @@ const Homepage = () => {
         });
 
     } catch (error) {
-        console.error('Submission error:', error); // Debug log
+        console.error('Submission error:', error); 
         alert('Error submitting feedback: ' + error.message);
     }
   };
