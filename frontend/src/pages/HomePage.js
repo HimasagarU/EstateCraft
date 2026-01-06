@@ -24,7 +24,7 @@ const Homepage = () => {
     try {
         console.log('Submitting feedback:', formData); // Debug log
         
-        const response = await fetch('https://realestate-9evw.onrender.com/api/feedback', {
+        const response = await fetch('https://estatecraft-n15c.onrender.com/api/feedback', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -239,7 +239,7 @@ const Homepage = () => {
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const res = await fetch('https://realestate-9evw.onrender.com/api/feedback', {
+//       const res = await fetch('https://estatecraft-n15c.onrender.com/api/feedback', {
 //         method: 'POST',
 //         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
 //         body: JSON.stringify(formData)

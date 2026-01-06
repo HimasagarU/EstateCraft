@@ -74,7 +74,7 @@ const EmployeePage = () => {
             }
 
             const user = JSON.parse(userData);
-            const response = await axios.get('https://realestate-9evw.onrender.com/api/employee/advertisements', {
+            const response = await axios.get('https://estatecraft-n15c.onrender.com/api/employee/advertisements', {
                 headers: { 
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -101,7 +101,7 @@ const EmployeePage = () => {
             }
 
             const user = JSON.parse(userData);
-            const response = await axios.get('https://realestate-9evw.onrender.com/api/employee/revenue-stats', {
+            const response = await axios.get('https://estatecraft-n15c.onrender.com/api/employee/revenue-stats', {
                 headers: { 
                     'Authorization': `Bearer ${user.token}`
                 }
@@ -163,7 +163,7 @@ const EmployeePage = () => {
             }
 
             if (editingId) {
-                await axios.put(`https://realestate-9evw.onrender.com/api/employee/advertisement/${editingId}`, formData, {
+                await axios.put(`https://estatecraft-n15c.onrender.com/api/employee/advertisement/${editingId}`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${user.token}`
@@ -171,7 +171,7 @@ const EmployeePage = () => {
                 });
                 toast.success('Advertisement updated successfully!');
             } else {
-                await axios.post('https://realestate-9evw.onrender.com/api/employee/advertisement', formData, {
+                await axios.post('https://estatecraft-n15c.onrender.com/api/employee/advertisement', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         'Authorization': `Bearer ${user.token}`
@@ -219,7 +219,7 @@ const EmployeePage = () => {
                 const userData = localStorage.getItem('user');
                 const user = JSON.parse(userData);
                 
-                await axios.delete(`https://realestate-9evw.onrender.com/api/employee/advertisement/${id}`, {
+                await axios.delete(`https://estatecraft-n15c.onrender.com/api/employee/advertisement/${id}`, {
                     headers: { 
                         'Authorization': `Bearer ${user.token}`
                     }
@@ -244,7 +244,7 @@ const EmployeePage = () => {
                 : null;
 
             const response = await axios.get(
-                'https://realestate-9evw.onrender.com/api/employee/advertisement-requests',
+                'https://estatecraft-n15c.onrender.com/api/employee/advertisement-requests',
                 {
                     headers: {
                         'Authorization': `Bearer ${token}`
@@ -273,7 +273,7 @@ const EmployeePage = () => {
             console.log('Sending update request:', { requestId, status: newStatus });
 
             const response = await axios.patch(
-                'https://realestate-9evw.onrender.com/api/employee/advertisement-request/status',
+                'https://estatecraft-n15c.onrender.com/api/employee/advertisement-request/status',
                 {
                     requestId,
                     status: newStatus
@@ -390,7 +390,7 @@ const EmployeePage = () => {
                                             src={ad.content?.startsWith('/9j') 
                                                 ? `data:image/jpeg;base64,${ad.content}`
                                                 : ad.content 
-                                                    ? `https://realestate-9evw.onrender.com/uploads/${ad.content}`
+                                                    ? `https://estatecraft-n15c.onrender.com/uploads/${ad.content}`
                                                     : 'https://via.placeholder.com/400x300?text=Advertisement+Image'
                                             } 
                                             alt={ad.title} 

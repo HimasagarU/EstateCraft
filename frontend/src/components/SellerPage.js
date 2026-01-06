@@ -652,7 +652,7 @@ const SellerPage = () => {
     try {
       const token = authService.getToken();
       
-      const adRequestResponse = await axios.post('https://realestate-9evw.onrender.com/api/seller/advertise', {
+      const adRequestResponse = await axios.post('https://estatecraft-n15c.onrender.com/api/seller/advertise', {
         propertyId,
         amount: 10000,
         currency: 'usd',
@@ -689,7 +689,7 @@ const SellerPage = () => {
 
     try {
       const token = authService.getToken();
-      await axios.post('https://realestate-9evw.onrender.com/api/seller/property', submitData, {
+      await axios.post('https://estatecraft-n15c.onrender.com/api/seller/property', submitData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',
@@ -717,7 +717,7 @@ const SellerPage = () => {
     setLoading(true);
     try {
       const token = authService.getToken();
-      const response = await axios.get('https://realestate-9evw.onrender.com/api/seller/myProperty', {
+      const response = await axios.get('https://estatecraft-n15c.onrender.com/api/seller/myProperty', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setMyProperties(response.data);
@@ -731,7 +731,7 @@ const SellerPage = () => {
   const fetchAdvertisementRequests = async () => {
     try {
       const token = authService.getToken();
-      const response = await axios.get('https://realestate-9evw.onrender.com/api/seller/advertisement-status', {
+      const response = await axios.get('https://estatecraft-n15c.onrender.com/api/seller/advertisement-status', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setAdvertisementRequests(response.data);
@@ -745,7 +745,7 @@ const SellerPage = () => {
     if (window.confirm('Are you sure you want to delete this property?')) {
       try {
         const token = authService.getToken();
-        await axios.post('https://realestate-9evw.onrender.com/api/seller/delete-property', 
+        await axios.post('https://estatecraft-n15c.onrender.com/api/seller/delete-property', 
           { propertyId },
           {
             headers: {

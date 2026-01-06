@@ -451,7 +451,7 @@ const BuyerPage = () => {
       });
 
       const response = await axios.get(
-        `https://realestate-9evw.onrender.com/api/buyer/properties?${queryParams.toString()}`,
+        `https://estatecraft-n15c.onrender.com/api/buyer/properties?${queryParams.toString()}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -471,7 +471,7 @@ const BuyerPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.get(
-        "https://realestate-9evw.onrender.com/api/buyer/favorites",
+        "https://estatecraft-n15c.onrender.com/api/buyer/favorites",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -487,7 +487,7 @@ const BuyerPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.get(
-        "https://realestate-9evw.onrender.com/api/buyer/purchased",
+        "https://estatecraft-n15c.onrender.com/api/buyer/purchased",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -506,14 +506,14 @@ const BuyerPage = () => {
 
       if (isFavorite) {
         await axios.delete(
-          `https://realestate-9evw.onrender.com/api/buyer/favorites/${propertyId}`,
+          `https://estatecraft-n15c.onrender.com/api/buyer/favorites/${propertyId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
       } else {
         await axios.post(
-          "https://realestate-9evw.onrender.com/api/buyer/favorites",
+          "https://estatecraft-n15c.onrender.com/api/buyer/favorites",
           { propertyId },
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -537,7 +537,7 @@ const BuyerPage = () => {
     try {
       const token = authService.getToken();
       const response = await axios.post(
-        "https://realestate-9evw.onrender.com/api/buyer/purchase",
+        "https://estatecraft-n15c.onrender.com/api/buyer/purchase",
         {
           propertyId,
           price,
@@ -585,7 +585,7 @@ const BuyerPage = () => {
         try {
           const token = authService.getToken();
           const response = await axios.get(
-            "https://realestate-9evw.onrender.com/api/buyer/properties",
+            "https://estatecraft-n15c.onrender.com/api/buyer/properties",
             {
               headers: {
                 Authorization: `Bearer ${token}`,
